@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://bootswatch.com/sandstone/bootstrap.min.css">
+  <title>Document</title>
+  <style>
+    body {
+      margin-top: 40px;
+    }
+
+    #messageArea {
+      display: none;
+    }
+  </style>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    $(function () {
+      var socket = io();
+      var $userForm = $('#userForm');
+      var $userName = $('#username');
+      var $chat = $('#chat');
+
+      $userForm.submit(function (e) {
+        e.preventDefault();
+        if ($userName.val() === '') {
+          $('.form-group').attr("class", "form-group has-error");
+        }
+        else {
+          $('.form-group').attr("class", "form-group");
+          console.log('submitted');
+          var data = {};
+          data.uname = $userName.val();
+          $.ajax({
+            url: 'demo',
+            type: 'GET',
+            dataType: 'html',
+            success: function (res) {
+              $("html").html(res)
+            }
+          });
+          socket.emit('login', $('#username').val());
+          $('#username').val('');
+          return false;
+
+
+        }
+
+      });
+      socket.on('new user', function (user) {
+        console.log('user', user)
+        $('#users').append($('<li>').text(user.name));
+        $('#timer').append($('<li>').text(''));
+      });
+
+      socket.on('update users', function (users) {
+        console.log('delete', users)
+        $('#users li').remove();
+        $('#timer li').get(users.id).remove();
+        for (var i = 0; i < users.user.length; i++) {
+          $('#users').append($('<li>').text(users.user[i].name));
+        }
+      });
+
+      socket.on('login time', function (time) {
+        console.log('sdsd', time)
+        $('#timer li').get(time.id).innerHTML = time.timer
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div id="main"></div>
+  <div class="container">
+
+    <form id="userForm">
+      <div class="form-group">
+        <label for="email">Username:</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter username" name="uname">
+      </div>
+      <button type="submit" class="btn btn-default">Login</button>
+    </form>
+
+  </div>
+
+</body>
+
+</html>

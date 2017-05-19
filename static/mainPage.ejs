@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://bootswatch.com/sandstone/bootstrap.min.css">-->
+    <title>Document</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+    <script>
+        //  $(function () {
+    // var socket = io();  
+    // socket.on('new user', function(msg){
+    //         console.log('sdsd',msg)
+    //         $('#users').append($('<li>').text(msg));
+    //       });
+    //  })
+    </script>
+</head>
+
+<body>
+    <h1>Main Page</h1>
+    <!--<div class="col-md-4">
+          <div class="well">
+            <h4>Online Users  |  Login Time</h4>
+            <ol class="list-group" id="users">
+            </ol>
+          </div>
+        </div>-->
+    <!--<div id="timer"></div>-->
+    <table>
+        <colgroup>
+            <col span="2" style="background-color:red">
+            <col style="background-color:yellow">
+        </colgroup>
+        <tr>
+            <th>Login Users</th>
+            <th>Login since</th>
+        </tr>
+
+        <tr>
+            <td>
+                <ol id="users">
+                </ol>
+            </td>
+            <td>
+                <ol id="timer">
+                </ol>
+            </td>
+        </tr>
+    </table>
+    <div id="div_element"></div>
+</body>
+
+</html>
